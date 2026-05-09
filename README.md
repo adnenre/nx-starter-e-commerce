@@ -1,5 +1,7 @@
 # Nx React E-Commerce Starter
 
+[![CI](https://github.com/adnenre/nx-starter-e-commerce/actions/workflows/ci.yml/badge.svg)](https://github.com/adnenre/nx-starter-e-commerce/actions/workflows/ci.yml)
+
 A production‑ready full‑stack e‑commerce starter built with Nx, React, Node.js, and pnpm.
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
