@@ -69,6 +69,8 @@
     "apps/*",
     "libs/api/products",
     "libs/shared/*",
-    "libs/shop/*"
+    "libs/shop/*",
+    "libs/shared/models",
+    "libs/shared/auth"
   ]
 }
