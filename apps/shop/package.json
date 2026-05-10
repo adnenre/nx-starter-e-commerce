@@ -31,6 +31,7 @@
     "@org/shop-data": "workspace:*",
     "@org/shop-feature-product-detail": "workspace:*",
     "@org/shop-feature-products": "workspace:*",
-    "@org/shop-shared-ui": "workspace:*"
+    "@org/shop-shared-ui": "workspace:*",
+    "@org/shop-feature-auth": "workspace:*"
   }
 }

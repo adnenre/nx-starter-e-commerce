@@ -32,6 +32,12 @@
     },
     {
       "path": "./libs/shared/test-utils"
+    },
+    {
+      "path": "./libs/api/auth"
+    },
+    {
+      "path": "./libs/shop/feature-auth"
     }
   ]
 }
