@@ -1,10 +1,8 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
     "outDir": "../../../dist/out-tsc",
-    "tsBuildInfoFile": "../../../dist/tsconfig.lib.tsbuildinfo",
-
+    "tsBuildInfoFile": "../../../dist/libs/api-auth.tsbuildinfo",
     "module": "esnext",
     "moduleResolution": "bundler",
 
@@ -15,5 +13,10 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"],
+  "references": [
+    {
+      "path": "../../shared/models/tsconfig.lib.json"
+    }
+  ]
 }

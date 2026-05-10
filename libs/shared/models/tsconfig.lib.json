@@ -7,7 +7,6 @@
     "emitDeclarationOnly": true,
     "rootDir": "src",
     "outDir": "../../../dist/out-tsc",
-    "tsBuildInfoFile": "../../../dist/tsconfig.lib.tsbuildinfo",
 
     "module": "esnext",
     "moduleResolution": "bundler",
