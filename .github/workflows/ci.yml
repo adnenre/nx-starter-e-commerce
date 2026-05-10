@@ -10,34 +10,40 @@ env:
   NODE_VERSION: 22.14.0
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec nx run-many -t test --skip-nx-cache
 
-  build:
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # 1. Install pnpm
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
-      - name: Use Node.js
+
+      # 2. Setup Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+          cache: pnpm
+
+      # 3. Install dependencies
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec nx run-many -t build --skip-nx-cache
+
+      # 4. VERIFY Nx version (IMPORTANT DEBUG STEP)
+      - name: Check Nx version
+        run: pnpm exec nx --version
+
+      # 5. Lint (optional but recommended)
+      - name: Lint
+        run: pnpm exec nx run-many -t lint --skip-nx-cache
+
+      # 6. Test
+      - name: Test
+        run: pnpm exec nx run-many -t test --skip-nx-cache
+
+      # 7. Build (IMPORTANT FIX)
+      - name: Build
+        run: pnpm exec nx run-many -t build --skip-nx-cache

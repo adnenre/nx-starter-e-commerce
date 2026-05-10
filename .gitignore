@@ -51,3 +51,4 @@ test-output
 .claude/settings.local.json
 .nx/polygraph
 .nx/self-healing
+guide.md
