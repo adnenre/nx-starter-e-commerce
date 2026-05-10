@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(() => ({
-  root: import.meta.dirname,
+  root: __dirname,
   cacheDir: '../../../node_modules/.vite/libs/shop/feature-auth',
   plugins: [react()],
   // Uncomment this if you are using workers.
