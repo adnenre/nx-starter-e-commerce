@@ -21,7 +21,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "ignoreDeprecations": "6.0",
+
     "customConditions": ["@org/source"],
 
     "baseUrl": ".",
