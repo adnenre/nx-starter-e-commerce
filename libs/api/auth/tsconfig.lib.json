@@ -2,17 +2,18 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist",
-    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
-    "emitDeclarationOnly": false,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "outDir": "../../../dist/out-tsc",
+    "tsBuildInfoFile": "../../../dist/tsconfig.lib.tsbuildinfo",
+
+    "module": "esnext",
+    "moduleResolution": "bundler",
+
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
-  "references": [
-    {
-      "path": "../../shared/models/tsconfig.lib.json"
-    }
-  ]
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }

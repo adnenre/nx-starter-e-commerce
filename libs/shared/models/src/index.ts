@@ -1,2 +1,2 @@
-export * from './lib/product.model.js';
-export * from './lib/user.model.js';
+export * from './lib/product.model';
+export * from './lib/user.model';

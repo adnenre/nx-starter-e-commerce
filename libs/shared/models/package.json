@@ -18,6 +18,5 @@
       "scope:shared",
       "type:data"
     ]
-  },
-  "dependencies": {}
+  }
 }
