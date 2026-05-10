@@ -125,6 +125,7 @@
   "dependencies": {
     "@org/api-products": "workspace:*",
     "@org/models": "workspace:*",
+    "@org/auth": "workspace:*",
     "cookie-parser": "^1.4.7",
     "express": "^4.21.2"
   },
