@@ -186,6 +186,9 @@ importers:
       '@org/api-products':
         specifier: workspace:*
         version: link:../../libs/api/products
+      '@org/auth':
+        specifier: workspace:*
+        version: link:../../libs/api/auth
       '@org/models':
         specifier: workspace:*
         version: link:../../libs/shared/models
