@@ -210,6 +210,12 @@ importers:
 
   apps/shop-e2e: {}
 
+  libs/api/auth:
+    dependencies:
+      tslib:
+        specifier: ^2.3.0
+        version: 2.8.1
+
   libs/api/products:
     dependencies:
       tslib:
