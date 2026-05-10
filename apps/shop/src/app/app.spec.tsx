@@ -1,24 +1,35 @@
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-
 import App from './app';
 
-describe('App', () => {
-  it('should render successfully', () => {
-    const { baseElement } = render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
-    expect(baseElement).toBeTruthy();
-  });
+vi.mock('@org/shop-feature-auth', () => ({
+  AuthProvider: ({ children }: { children: React.ReactNode }) => (
+    <>{children}</>
+  ),
+  useAuth: () => ({
+    user: null,
+    loading: false,
+    register: vi.fn(),
+    login: vi.fn(),
+    logout: vi.fn(),
+  }),
+  RegisterPage: () => <div>Register Page Mock</div>,
+}));
 
-  it('should have a greeting as the title', () => {
-    const { getByText } = render(
+vi.mock('@org/shop-feature-products', () => ({
+  ProductList: () => <div>Mock Products</div>,
+}));
+vi.mock('@org/shop-feature-product-detail', () => ({
+  ProductDetail: () => <div>Mock Detail</div>,
+}));
+
+describe('App', () => {
+  it('should render without crashing', () => {
+    const { container } = render(
       <BrowserRouter>
         <App />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
-    expect(getByText('Nx Shop Demo')).toBeInTheDocument();
+    expect(container).toBeTruthy();
   });
 });

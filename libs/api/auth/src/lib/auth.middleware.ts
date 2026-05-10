@@ -18,7 +18,11 @@ export function authenticate(
     return;
   }
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as any;
+    const decoded = jwt.verify(token, JWT_SECRET) as {
+      userId: string;
+      email: string;
+      role: string;
+    };
     req.user = decoded;
     next();
   } catch {

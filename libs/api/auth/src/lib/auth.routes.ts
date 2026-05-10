@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import { Router, Response } from 'express';
 import { AuthService } from './auth';
 import { authenticate, AuthRequest } from './auth.middleware';
 
 const router = Router();
 const authService = new AuthService();
 
-function setAuthCookie(res: any, token: string): void {
+function setAuthCookie(res: Response, token: string): void {
   res.cookie('token', token, authService.getCookieOptions());
 }
 
@@ -19,9 +19,10 @@ router.post('/register', async (req, res) => {
     const token = authService.generateJwt(user);
     setAuthCookie(res, token);
     return res.status(201).json({ success: true, data: { user } });
-  } catch (error: any) {
-    const status = error.message === 'User already exists' ? 409 : 500;
-    return res.status(status).json({ success: false, error: error.message });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    const status = message === 'User already exists' ? 409 : 500;
+    return res.status(status).json({ success: false, error: message });
   }
 });
 
@@ -37,13 +38,21 @@ router.post('/login', async (req, res) => {
     const token = authService.generateJwt(user);
     setAuthCookie(res, token);
     return res.json({ success: true, data: { user } });
-  } catch (error: any) {
-    return res.status(401).json({ success: false, error: error.message });
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : 'Invalid credentials';
+    return res.status(401).json({ success: false, error: message });
   }
 });
 
 router.get('/me', authenticate, (req: AuthRequest, res) => {
-  const user = authService.findUserById(req.user!.userId);
+  const userId = req.user?.userId;
+  if (!userId) {
+    return res
+      .status(401)
+      .json({ success: false, error: 'User not authenticated' });
+  }
+  const user = authService.findUserById(userId);
   if (!user) {
     return res.status(401).json({ success: false, error: 'User not found' });
   }

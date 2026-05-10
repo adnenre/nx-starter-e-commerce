@@ -29,17 +29,20 @@ export class AuthService {
     if (!userRecord) throw new Error('Invalid credentials');
     const valid = await bcrypt.compare(password, userRecord.passwordHash);
     if (!valid) throw new Error('Invalid credentials');
-    const { passwordHash, ...user } = userRecord;
-    return user;
+    // Return user without passwordHash
+    return {
+      id: userRecord.id,
+      email: userRecord.email,
+      name: userRecord.name,
+      role: userRecord.role,
+    };
   }
 
   generateJwt(user: User): string {
     return jwt.sign(
       { userId: user.id, email: user.email, role: user.role },
       JWT_SECRET,
-      {
-        expiresIn: '7d',
-      },
+      { expiresIn: '7d' },
     );
   }
 
@@ -56,7 +59,12 @@ export class AuthService {
   findUserById(id: string): User | undefined {
     const user = users.find((u) => u.id === id);
     if (!user) return undefined;
-    const { passwordHash, ...safeUser } = user;
-    return safeUser;
+    // Return user without passwordHash
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    };
   }
 }
