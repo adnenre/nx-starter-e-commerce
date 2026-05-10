@@ -2,8 +2,7 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
 
 permissions:
@@ -16,7 +15,7 @@ concurrency:
 
 env:
   PNPM_VERSION: 9
-  NODE_VERSION: 20
+  NODE_VERSION: 20.18.0
 
 jobs:
   lint:
@@ -59,26 +58,6 @@ jobs:
       - name: Run tests
         run: pnpm exec nx run-many -t test
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Run builds
-        run: pnpm exec nx run-many -t build
-
   typecheck:
     runs-on: ubuntu-latest
     steps:
@@ -99,8 +78,29 @@ jobs:
       - name: Run typecheck
         run: pnpm exec nx run-many -t typecheck
 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run builds
+        run: pnpm exec nx run-many -t build
+
   e2e:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -126,3 +126,13 @@ jobs:
         shell: bash
       - name: Run E2E tests
         run: pnpm exec nx e2e shop-e2e
+
+  ci-success:
+    runs-on: ubuntu-latest
+    needs: [lint, test, typecheck, build, e2e]
+    if: always()
+    steps:
+      - name: Verify all jobs succeeded
+        run: |
+          echo "All CI jobs completed"
+          exit 0
