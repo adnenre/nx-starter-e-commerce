@@ -123,8 +123,12 @@
     ]
   },
   "dependencies": {
-    "express": "^4.21.2",
     "@org/api-products": "workspace:*",
-    "@org/models": "workspace:*"
+    "@org/models": "workspace:*",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10"
   }
 }
