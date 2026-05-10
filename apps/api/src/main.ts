@@ -1,6 +1,13 @@
 import express from 'express';
+import cookieParser from 'cookie-parser'; // NEW
 import { ProductsService } from '@org/api-products';
-import { ApiResponse, Product, ProductFilter, PaginatedResponse } from '@org/models';
+import {
+  ApiResponse,
+  Product,
+  ProductFilter,
+  PaginatedResponse,
+} from '@org/models';
+import { authRoutes } from '@org/auth'; // NEW
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3333;
@@ -8,14 +15,18 @@ const port = process.env.PORT ? Number(process.env.PORT) : 3333;
 const app = express();
 const productsService = new ProductsService();
 
-// Middleware
 app.use(express.json());
+app.use(cookieParser()); // NEW – parse cookies
 
-// CORS configuration for React app
+// CORS configuration for React app – updated to allow credentials
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200'); // CHANGED: fixed origin
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+  );
+  res.header('Access-Control-Allow-Credentials', 'true'); // NEW – allow cookies
   if (req.method === 'OPTIONS') {
     res.sendStatus(200);
   } else {
@@ -27,7 +38,10 @@ app.get('/', (req, res) => {
   res.send({ message: 'Hello API' });
 });
 
-// Products endpoints
+// Mount authentication routes (register, login, logout, /me)
+app.use('/api/auth', authRoutes); // NEW
+
+// Products endpoints – unchanged
 app.get('/api/products', (req, res) => {
   try {
     const filter: ProductFilter = {};
