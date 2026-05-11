@@ -1,7 +1,9 @@
 import { lazy, Suspense } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { LoadingSpinner } from '@org/shop-shared-ui';
-import { RegisterPage } from '@org/shop-feature-auth'; // direct import
+import { LoginPage, RegisterPage } from '@org/shop-feature-auth';
+import { AppHeader } from './components/AppHeader';
+import './app.css';
 
 const ProductList = lazy(() =>
   import('@org/shop-feature-products').then((m) => ({
@@ -15,9 +17,13 @@ const ProductDetail = lazy(() =>
 );
 
 export function App() {
+  const location = useLocation();
+  const hideHeader =
+    location.pathname === '/login' || location.pathname === '/register';
+
   return (
     <div className="app">
-      <header className="app-header">...</header>
+      {!hideHeader && <AppHeader />}
       <main className="app-main">
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
@@ -25,6 +31,7 @@ export function App() {
             <Route path="/products" element={<ProductList />} />
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<Navigate to="/products" replace />} />
           </Routes>
         </Suspense>
@@ -32,4 +39,5 @@ export function App() {
     </div>
   );
 }
+
 export default App;
