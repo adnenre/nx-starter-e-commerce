@@ -23,7 +23,11 @@ export const LoginPage: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.card}>
         <h2 className={styles.title}>Log in to your account</h2>
-        {error && <div className={styles.error}>{error}</div>}
+        {error && (
+          <div className={styles.error} data-testid="login-error">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <input
