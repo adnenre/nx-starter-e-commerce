@@ -2,7 +2,8 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
 
 env:
@@ -14,45 +15,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # 1. Install pnpm
-      - name: Install pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
 
-      # 2. Setup Node
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
 
-      # 3. Install dependencies (STRICT)
+      - name: Clean workspace caches
+        run: |
+          rm -rf node_modules
+          rm -rf .nx
+          rm -rf .turbo
+          rm -rf dist
+
+          find . -type d -name "dist" -exec rm -rf {} + 2>/dev/null || true
+          find . -type d -name ".vite" -exec rm -rf {} + 2>/dev/null || true
+          find . -type d -name "coverage" -exec rm -rf {} + 2>/dev/null || true
+          find . -type d -name "test-output" -exec rm -rf {} + 2>/dev/null || true
+
+          find . -type f -name "*.tsbuildinfo" -delete 2>/dev/null || true
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 4. Ensure Nx is available (hard fail early)
-      - name: Verify Nx installation
-        run: pnpm exec nx --version
-
-      # 5. Reset Nx cache (clean CI state)
-      - name: Reset Nx cache
+      - name: Reset Nx daemon/cache
         run: pnpm exec nx reset
 
-      # 6. Typecheck first (catches TS graph issues early)
-      - name: Typecheck
-        run: pnpm exec nx run-many -t typecheck --skip-nx-cache
+      - name: Build all projects
+        run: pnpm exec nx run-many -t build --all --skip-nx-cache
 
-      # 7. Lint
-      - name: Lint
-        run: pnpm exec nx run-many -t lint --skip-nx-cache
+      - name: Typecheck all projects
+        run: pnpm exec nx run-many -t typecheck --all --skip-nx-cache
 
-      # 8. Test
-      - name: Test
-        run: pnpm exec nx run-many -t test --skip-nx-cache
+      - name: Test all projects
+        run: pnpm exec nx run-many -t test --all --skip-nx-cache
 
-      # 9. Build
-      - name: Build
-        run: pnpm exec nx run-many -t build --skip-nx-cache
+      - name: Lint all projects
+        run: pnpm exec nx run-many -t lint --all --skip-nx-cache
