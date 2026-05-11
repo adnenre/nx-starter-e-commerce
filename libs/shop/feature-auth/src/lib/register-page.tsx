@@ -45,7 +45,11 @@ export const RegisterPage: React.FC = () => {
           Join our shop and start shopping today!
         </p>
 
-        {error && <div className={styles.error}>{error}</div>}
+        {error && (
+          <div className={styles.error} data-testid="register-error">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
@@ -85,6 +89,7 @@ export const RegisterPage: React.FC = () => {
                 type="checkbox"
                 checked={agreeTerms}
                 onChange={(e) => setAgreeTerms(e.currentTarget.checked)}
+                data-testid="terms-checkbox"
               />
               I agree to the{' '}
               <a href="/terms" target="_blank">
