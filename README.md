@@ -8,6 +8,10 @@ A production‑ready full‑stack e‑commerce starter built with Nx, React, Nod
 
 A production‑ready React monorepo showcasing [Nx](https://nx.dev) with **pnpm workspaces**, module boundaries, and full‑stack development (React + Node.js API).
 
+## Screenshot
+
+![Shop screenshot](ecommerce.png)
+
 > ✅ Built with Nx 22.7, React 19, Vite, Vitest, Playwright, and Express.
 
 ## 📦 Project Overview
