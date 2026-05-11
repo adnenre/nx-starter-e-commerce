@@ -1,38 +1,22 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
-
     "importHelpers": true,
     "isolatedModules": true,
-
     "lib": ["es2022"],
-
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-
-    "customConditions": ["@org/source"],
-
-    "baseUrl": ".",
-
-    "paths": {
-      "@org/models": ["libs/shared/models/src/index.ts"],
-      "@org/auth": ["libs/api/auth/src/index.ts"],
-      "@org/api-products": ["libs/api/products/src/index.ts"],
-      "@org/shop": ["apps/shop/src/index.ts"]
-    },
-
-    "allowImportingTsExtensions": true
+    "customConditions": ["@org/source"]
   }
 }

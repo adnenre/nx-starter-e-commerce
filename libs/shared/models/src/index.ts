@@ -1,2 +1,12 @@
-export * from './lib/product.model';
-export * from './lib/user.model';
+export type {
+  ApiResponse,
+  Product,
+  ProductFilter,
+  PaginatedResponse,
+} from './lib/product.model';
+export type {
+  User,
+  RegisterData,
+  LoginCredentials,
+  AuthResponse,
+} from './lib/user.model';

@@ -4,6 +4,7 @@
   "private": true,
   "main": "./dist/index.js",
   "module": "./dist/index.js",
+  "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
@@ -21,9 +22,6 @@
   },
   "dependencies": {
     "tslib": "^2.3.0",
-    "@org/models": "workspace:*"
-  },
-  "devDependencies": {
     "@org/models": "workspace:*"
   }
 }

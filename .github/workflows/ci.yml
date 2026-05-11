@@ -29,21 +29,30 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
 
-      # 3. Install dependencies
-      - run: pnpm install --frozen-lockfile
+      # 3. Install dependencies (STRICT)
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      # 4. VERIFY Nx version (IMPORTANT DEBUG STEP)
-      - name: Check Nx version
+      # 4. Ensure Nx is available (hard fail early)
+      - name: Verify Nx installation
         run: pnpm exec nx --version
 
-      # 5. Lint (optional but recommended)
+      # 5. Reset Nx cache (clean CI state)
+      - name: Reset Nx cache
+        run: pnpm exec nx reset
+
+      # 6. Typecheck first (catches TS graph issues early)
+      - name: Typecheck
+        run: pnpm exec nx run-many -t typecheck --skip-nx-cache
+
+      # 7. Lint
       - name: Lint
         run: pnpm exec nx run-many -t lint --skip-nx-cache
 
-      # 6. Test
+      # 8. Test
       - name: Test
         run: pnpm exec nx run-many -t test --skip-nx-cache
 
-      # 7. Build (IMPORTANT FIX)
+      # 9. Build
       - name: Build
         run: pnpm exec nx run-many -t build --skip-nx-cache

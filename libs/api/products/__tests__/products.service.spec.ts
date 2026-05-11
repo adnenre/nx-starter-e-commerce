@@ -1,4 +1,4 @@
-import { ProductsService } from './products.service';
+import { ProductsService } from '../src/lib/products.service';
 
 import { ProductFilter } from '@org/models';
 

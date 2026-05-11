@@ -1,23 +1,21 @@
 {
   "extends": "../../../tsconfig.base.json",
-
   "compilerOptions": {
-    "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true,
     "baseUrl": ".",
     "rootDir": "src",
     "outDir": "dist",
-    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
 
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "emitDeclarationOnly": false,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "__tests__/products.service.spec.ts"],
+  "exclude": ["__tests__/**/*", "**/*.test.ts", "**/*.spec.ts"],
   "references": [
     {
       "path": "../../shared/models/tsconfig.lib.json"
     }
-  ],
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  ]
 }

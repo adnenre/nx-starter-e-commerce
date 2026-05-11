@@ -2,15 +2,15 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../../node_modules/.vite/libs/api/products',
+  cacheDir: '../../../node_modules/.vite/libs/shared/models',
 
   test: {
-    name: '@org/api-products',
+    name: '@org/models',
     watch: false,
     globals: true,
     environment: 'node',
 
-    include: ['__tests__/*.spec.ts', 'src/**/*.spec.ts'],
+    include: ['src/**/*.{test,spec}.{js,ts}'],
 
     reporters: ['default'],
 
