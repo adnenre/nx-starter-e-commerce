@@ -10,7 +10,21 @@ A production‑ready React monorepo showcasing [Nx](https://nx.dev) with **pnpm 
 
 ## Screenshot
 
+### Register
+
+![Shop screenshot](register.png)
+
+### Login
+
+![Shop screenshot](login.png)
+
+### Products list
+
 ![Shop screenshot](ecommerce.png)
+
+### Products Details
+
+![Shop screenshot](ecommerce1.png)
 
 > ✅ Built with Nx 22.7, React 19, Vite, Vitest, Playwright, and Express.
 
