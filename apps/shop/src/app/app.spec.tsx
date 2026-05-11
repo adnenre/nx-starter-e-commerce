@@ -14,6 +14,7 @@ vi.mock('@org/shop-feature-auth', () => ({
     logout: vi.fn(),
   }),
   RegisterPage: () => <div>Register Page Mock</div>,
+  LoginPage: () => <div>Login Page Mock</div>, // <-- Add this line
 }));
 
 vi.mock('@org/shop-feature-products', () => ({
