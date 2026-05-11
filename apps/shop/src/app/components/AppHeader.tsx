@@ -40,7 +40,11 @@ export function AppHeader() {
         <div className={styles.userArea}>
           {user ? (
             <div className={styles.avatarDropdown} ref={dropdownRef}>
-              <div className={styles.avatar} onClick={toggleDropdown}>
+              <div
+                className={styles.avatar}
+                onClick={toggleDropdown}
+                data-testid="avatar"
+              >
                 {getUserInitials()}
               </div>
               {dropdownOpen && (
@@ -48,12 +52,14 @@ export function AppHeader() {
                   <button
                     className={styles.dropdownItem}
                     onClick={() => (window.location.href = '/cart')}
+                    data-testid="cart-button"
                   >
                     🛒 Cart
                   </button>
                   <button
                     className={`${styles.dropdownItem} ${styles.logout}`}
                     onClick={handleLogout}
+                    data-testid="logout-button"
                   >
                     🚪 Logout
                   </button>
