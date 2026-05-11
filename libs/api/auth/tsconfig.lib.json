@@ -2,16 +2,17 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "outDir": "../../../dist/libs/api/auth",
+    "outDir": "dist",
     "rootDir": "src",
-    "declaration": true,
+
     "module": "esnext",
     "moduleResolution": "bundler",
     "emitDeclarationOnly": false,
-    "tsBuildInfoFile": "../../../dist/libs/api/auth/tsconfig.lib.tsbuildinfo",
+    "forceConsistentCasingInFileNames": true,
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/*.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
   "references": [
     {

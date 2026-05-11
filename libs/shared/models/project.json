@@ -8,7 +8,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/shared/models",
+        "outputPath": "libs/shared/models/dist",
         "main": "libs/shared/models/src/index.ts",
         "tsConfig": "libs/shared/models/tsconfig.lib.json"
       }
